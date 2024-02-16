@@ -15,10 +15,6 @@ class SERFFParser():
         "exception": "app/exceptions/"
     }
 
-    RUNTIME_EXTENSION = {
-        "python": ".py",
-        "typescript": ".ts"
-    }
 
     def __init__(self, params:dict[str, str]):
         self._raw = None
@@ -63,21 +59,21 @@ class SERFFParser():
     def parse_domain(self) -> None:
         temp_files:list[dict[str, Any]] = []
         for module, attributes in self._model.items():
-            temp_files = temp_files + domain_parser.create_domain(module, attributes, self._runtime, self.RUNTIME_EXTENSION[self._runtime])
+            temp_files = temp_files + domain_parser.create_domain(module, attributes, self._runtime)
         self._files = self._files + temp_files    
         pass
 
     def parse_handler(self) -> None:
         temp_files:list[dict[str, Any]] = []
         for module, attributes in self._model.items():
-            temp_files = temp_files + handler_parser.create_handlers(module, attributes, self._runtime, self.RUNTIME_EXTENSION[self._runtime])
+            temp_files = temp_files + handler_parser.create_handlers(module, attributes, self._runtime)
         self._files = self._files + temp_files
         pass
 
     def parse_repository(self) -> None:
         temp_files:list[dict[str, Any]] = []
         for module, attributes in self._model.items():
-            temp_files = temp_files + repository_parser.create_repositories(module, attributes, self._runtime, self.RUNTIME_EXTENSION[self._runtime])
+            temp_files = temp_files + repository_parser.create_repositories(module, attributes, self._runtime)
         self._files = self._files + temp_files
         pass
 
