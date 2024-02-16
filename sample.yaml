@@ -1,0 +1,34 @@
+__SERFF_settings__:
+    database: MongoDB
+    cluster_name: serff-test-db
+__Modules__:
+    Customer:
+        data:
+            Customer Name: string
+            Gender: 
+                data_type: string
+                allowed: [ Male, Female, LGBTQ+ ]
+            Join Date: date
+            Preferred Customer: 
+                data_type: string
+                allowed: ["Yes", "No"]
+                required: false
+            Customer Type: 
+                type: relationship
+                has_one: Customer Type
+                display: ['Customer Type']
+                value: Customer Type
+            Remarks: string
+    Customer Type:
+        data:
+            Description: string
+    Document:
+        data:
+            Title: string
+            Revision: int
+            Numerical Code: number
+            Description: string
+            Attachments:
+                data_type: file-upload
+                allowed: ["jpg", "png", "csv", "pdf", "txt", "doc"]
+                max_upload_size: 10

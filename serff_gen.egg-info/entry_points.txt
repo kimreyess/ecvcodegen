@@ -1,0 +1,3 @@
+[console_scripts]
+serff = main:run_parser
+
