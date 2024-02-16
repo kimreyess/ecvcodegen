@@ -1,4 +1,9 @@
 from typing_extensions import Callable
+RUNTIME_EXTENSION = {
+    "python": ".py",
+    "typescript": ".ts"
+}
+
 def convert_to_system_name(name:str, target:str='variable')->str:
 
     converter_map:dict[str, Callable[..., str]] = {
@@ -29,8 +34,14 @@ def to_class(temp_name:str)-> str:
     capitalized_name = [word.capitalize() for word in name]
     return ''.join(capitalized_name)
 
-def compose_file_path(file_path:str, fileformat:str, module_name:str, extension:str)-> str:
-    return file_path + compose_filename(fileformat, module_name) + extension
+def compose_file_path(file_path:str, fileformat:str, module_name:str, runtime:str)-> str:
+    filename:str = ""
+    if runtime == "python":
+        filename = module_name
+    else:
+        filename = to_class(module_name)
+
+    return file_path + compose_filename(fileformat, filename) + RUNTIME_EXTENSION[runtime]
 
 def compose_filename(file_format:str, to_replace:str)->str:
     return file_format.replace("{|module_name|}", to_replace)

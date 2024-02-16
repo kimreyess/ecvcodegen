@@ -45,12 +45,12 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     ]
 }
 
-def create_handlers(module_name:str, module_attributes:dict[str, Any], runtime:str, extension:str) -> list[dict[str, str]]:
+def create_handlers(module_name:str, module_attributes:dict[str, Any], runtime:str) -> list[dict[str, str]]:
     files_to_append:list[dict[str, str]] = []
     
     for functions in FUNCTION_RUNTIME_MAP[runtime]:
         files_to_append.append({
-            "file_path": helpers.compose_file_path(functions["file_path"] + f"{module_name}/", functions['filename_format'], module_name, extension),
+            "file_path": helpers.compose_file_path(functions["file_path"] + f"{module_name}/", functions['filename_format'], module_name, runtime),
             "source_code": functions["generate_function"](module_name, module_attributes)
         })
     return files_to_append
