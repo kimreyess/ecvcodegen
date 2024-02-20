@@ -11,7 +11,11 @@ def generate(parameters:dict[str, Any])->None:
     print("Generating handler files..")
     serff_parser.parse_handler()
     print("Generating test scripts..")
+    print("Fetching SERFF source files..")
+
     print("Updating serverless.yml")
+
+    print("Creating config files")
 
     serff_parser.generate_files()
 

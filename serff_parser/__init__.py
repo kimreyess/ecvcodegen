@@ -1,4 +1,5 @@
 import yaml
+import boto3
 from typing_extensions import Any
 import serff_parser.SERFF_domain as domain_parser
 import serff_parser.SERFF_handler as handler_parser
@@ -6,6 +7,7 @@ import serff_parser.SERFF_repository as repository_parser
 # import serff_parser.SERFF_test_scripts as test_script_parser
 import helpers
 import os
+import subprocess
 class SERFFParser():
 
     FILE_PATH_MAP = {
@@ -13,6 +15,14 @@ class SERFFParser():
         "repository": "app/repositories/",
         "handler": "app/handlers/http/",
         "exception": "app/exceptions/"
+    }
+
+    RUNTIME_REPOSITORY_CONFIG:"dict[str,dict[str,str]]" = {
+        "python": {
+            "repository_name": "ecv-python-serverless-framework",
+            "temp_dir": "source_files/py-serff/"
+
+        }
     }
 
 
@@ -92,4 +102,25 @@ class SERFFParser():
             content:str = items["source_code"]
             with open(filename, "w") as file:
                 file.write(content)
+
+    def fetch_source_files(self):
+        codecommit: Any = boto3.client('codecommit') #type: ignore
+        try:
+            response = codecommit.get_repository(repositoryName=self.RUNTIME_REPOSITORY_CONFIG[self._runtime]["repository_name"])
+            repository:dict[str, Any] = response["repositoryMetadata"]
+
+            # Clone the repository
+            clone_url = repository['cloneUrlSsh']  # Use HTTPS clone URL for cloning
+            clone_command = f"git clone {clone_url} {self.RUNTIME_REPOSITORY_CONFIG[self._runtime]['temp_dir']}"
+            clone_output = subprocess.check_output(clone_command, shell=True)
+
+            print(f"Repository '{self.RUNTIME_REPOSITORY_CONFIG[self._runtime]['repository_name']}' cloned successfully'.")
+        except codecommit.exceptions.RepositoryDoesNotExistException:
+            print(f"Error: Repository '{self.RUNTIME_REPOSITORY_CONFIG[self._runtime]['repository_name']}' does not exist.")
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+        
+
 
