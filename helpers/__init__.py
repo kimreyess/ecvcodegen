@@ -34,6 +34,16 @@ def to_class(temp_name:str)-> str:
     capitalized_name = [word.capitalize() for word in name]
     return ''.join(capitalized_name)
 
+def to_readable_name(temp_name:str)-> str:
+    name:list[str] = temp_name.split("_")
+    capitalized_name = [word.capitalize() for word in name]
+    return ' '.join(capitalized_name)
+
+def to_camel_case(temp_name: str) -> str:
+    name = temp_name.split("_")
+    capitalized_name = [name[0].lower()] + [word.capitalize() for word in name[1:]]
+    return ''.join(capitalized_name)
+
 def compose_file_path(file_config:dict[str, str], module_name:str, runtime:str)-> str:
     filename:str = ""
     if runtime == "python":
