@@ -34,14 +34,18 @@ def to_class(temp_name:str)-> str:
     capitalized_name = [word.capitalize() for word in name]
     return ''.join(capitalized_name)
 
-def compose_file_path(file_path:str, fileformat:str, module_name:str, runtime:str)-> str:
+def compose_file_path(file_config:dict[str, str], module_name:str, runtime:str)-> str:
     filename:str = ""
     if runtime == "python":
         filename = module_name
     else:
         filename = to_class(module_name)
+    
+    temp_file_path: str = file_config["file_path"]
+    if file_config.get("sub_directories", None):
+        temp_file_path = temp_file_path + replace_module_name(file_config['sub_directories'], filename)
 
-    return file_path + compose_filename(fileformat, filename) + RUNTIME_EXTENSION[runtime]
+    return temp_file_path + replace_module_name(file_config["filename_format"], filename) + RUNTIME_EXTENSION[runtime]
 
-def compose_filename(file_format:str, to_replace:str)->str:
+def replace_module_name(file_format:str, to_replace:str)->str:
     return file_format.replace("{|module_name|}", to_replace)

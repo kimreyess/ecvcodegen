@@ -14,8 +14,11 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     "python":[
         {
             "generate_function": py_repository_script.generate_repository_source_code,
-            "file_path": PY_REPOSITORIES_DIRECTORY,
-            "filename_format": "{|module_name|}_repository"
+            "file_config":
+            {
+                "file_path": PY_REPOSITORIES_DIRECTORY,
+                "filename_format": "{|module_name|}_repository"
+            }
         }
     ],
     "typescript":[
@@ -28,7 +31,7 @@ def create_repositories(module_name:str, module_attributes:dict[str, Any], runti
     
     for functions in FUNCTION_RUNTIME_MAP[runtime]:
         files_to_append.append({
-            "file_path": helpers.compose_file_path(functions["file_path"], functions['filename_format'], module_name, runtime),
+            "file_path": helpers.compose_file_path(functions["file_config"], module_name, runtime),
             "source_code": functions["generate_function"](module_name, module_attributes)
         })
 

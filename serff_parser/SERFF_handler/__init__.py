@@ -16,28 +16,43 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     "python":[
         {
             "generate_function": py_handler_script.generate_create_handler,
-            "file_path": PY_HANDLERS_DIRECTORY,
-            "filename_format": "create_{|module_name|}_handler"
+            "file_config":{
+                "file_path": PY_HANDLERS_DIRECTORY,
+                "filename_format": "create_{|module_name|}_handler",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": py_handler_script.generate_get_handler,
-            "file_path": PY_HANDLERS_DIRECTORY,
-            "filename_format": "get_{|module_name|}_handler"
+            "file_config":{
+                "file_path": PY_HANDLERS_DIRECTORY,
+                "filename_format": "get_{|module_name|}_handler",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": py_handler_script.generate_list_handler,
-            "file_path": PY_HANDLERS_DIRECTORY,
-            "filename_format": "list_{|module_name|}_handler"
+            "file_config":{
+                "file_path": PY_HANDLERS_DIRECTORY,
+                "filename_format": "list_{|module_name|}_handler",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": py_handler_script.generate_update_handler,
-            "file_path": PY_HANDLERS_DIRECTORY,
-            "filename_format": "update_{|module_name|}_handler"
+            "file_config":{
+                "file_path": PY_HANDLERS_DIRECTORY,
+                "filename_format": "update_{|module_name|}_handler",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": py_handler_script.generate_delete_handler,
-            "file_path": PY_HANDLERS_DIRECTORY,
-            "filename_format": "delete_{|module_name|}_handler"
+            "file_config":{
+                "file_path": PY_HANDLERS_DIRECTORY,
+                "filename_format": "delete_{|module_name|}_handler",
+                "sub_directories": "{|module_name|}/"
+            }
         },
     ],
     "typescript":[
@@ -50,7 +65,7 @@ def create_handlers(module_name:str, module_attributes:dict[str, Any], runtime:s
     
     for functions in FUNCTION_RUNTIME_MAP[runtime]:
         files_to_append.append({
-            "file_path": helpers.compose_file_path(functions["file_path"] + f"{module_name}/", functions['filename_format'], module_name, runtime),
+            "file_path": helpers.compose_file_path(functions["file_config"], module_name, runtime),
             "source_code": functions["generate_function"](module_name, module_attributes)
         })
     return files_to_append
