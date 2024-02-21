@@ -1,14 +1,15 @@
 from typing_extensions import Any
 from serff_parser.SERFF_repository import py_repository_script
-# from serff_parser.SERFF_handler import ts_handler_script
+from serff_parser.SERFF_repository import ts_repository_script
+from serff_parser.SERFF_repository import ts_model_script
 import helpers
 
 #python repositories
 PY_REPOSITORIES_DIRECTORY = "app/repositories/"
 
 #typescript directories
-TS_REPOSITORIES_DIRECTORY = "app/repositories/"
-TS_MODELS_DIRECTORY       = "app/models/"
+TS_REPOSITORIES_DIRECTORY = "app/repositories/mongodb/"
+TS_MODELS_DIRECTORY       = "app/models/mongodb/"
 
 FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     "python":[
@@ -22,7 +23,16 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
         }
     ],
     "typescript":[
-
+        {
+            "generate_function": ts_repository_script.generate_repository_source_code,
+            "file_path": TS_REPOSITORIES_DIRECTORY,
+            "filename_format": "{|module_name|}Repository"
+        },
+        {
+            "generate_function": ts_model_script.generate_model_source_code,
+            "file_path": TS_MODELS_DIRECTORY,
+            "filename_format": "{|module_name|}Model"
+        }
     ]
 }
 

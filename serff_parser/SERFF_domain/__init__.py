@@ -1,5 +1,6 @@
 from typing_extensions import Any
 from serff_parser.SERFF_domain import py_domain_script
+from serff_parser.SERFF_domain import ts_domain_script
 import helpers
 # from serff_parser.SERFF_domain import ts_domain_script
 
@@ -29,7 +30,11 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
         },
     ],
     "typescript":[
-
+        {
+            "generate_function": ts_domain_script.generate_controller_source_code,
+            "file_path": TS_CONTROLLERS_DIRECTORY,
+            "filename_format": "{|module_name|}Controller"
+        },
     ]
 }
 

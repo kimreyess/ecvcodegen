@@ -1,6 +1,8 @@
 from typing_extensions import Any
 from serff_parser.SERFF_handler import py_handler_script
-# from serff_parser.SERFF_handler import ts_handler_script
+from serff_parser.SERFF_handler import ts_handler_script
+from serff_parser.SERFF_handler import ts_handler_policies
+from serff_parser.SERFF_handler import ts_handler_schema
 import helpers
 
 #python directories
@@ -9,8 +11,8 @@ PY_RULES_DIRECTORY:str    = "app/handlers/rules/"
 
 #typescript directories
 TS_HANDLERS_DIRECTORY:str = "app/handlers/http/"
-TS_POLICIES_DIRECTORY:str = "app/handlers/_rules/policy/"
-TS_SCHEMAS_DIRECTORY:str  = "app/handlers/_rules/schema/"
+TS_POLICIES_DIRECTORY:str = "app/handlers/http/_rules/policies/"
+TS_SCHEMAS_DIRECTORY:str  = "app/handlers/http/_rules/schemas/"
 
 FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     "python":[
@@ -56,7 +58,71 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
         },
     ],
     "typescript":[
-
+        {
+            "generate_function": ts_handler_policies.generate_rule_policies_handler,
+            "file_path": TS_POLICIES_DIRECTORY,
+            "filename_format": "{|module_name|}"
+        },
+        {
+            "generate_function": ts_handler_schema.generate_create_rule_schema_code,
+            "file_path": TS_SCHEMAS_DIRECTORY,
+            "filename_format": "create"
+        },
+        {
+            "generate_function": ts_handler_schema.generate_get_rule_schema_code,
+            "file_path": TS_SCHEMAS_DIRECTORY,
+            "filename_format": "get"
+        },
+        {
+            "generate_function": ts_handler_schema.generate_delete_rule_schema_code,
+            "file_path": TS_SCHEMAS_DIRECTORY,
+            "filename_format": "delete"
+        },
+        {
+            "generate_function": ts_handler_schema.generate_update_rule_schema_code,
+            "file_path": TS_SCHEMAS_DIRECTORY,
+            "filename_format": "update"
+        },
+        {
+            "generate_function": ts_handler_schema.generate_list_rule_schema_code,
+            "file_path": TS_SCHEMAS_DIRECTORY,
+            "filename_format": "list"
+        },
+        {
+            "generate_function": ts_handler_schema.generate_search_rule_schema_code,
+            "file_path": TS_SCHEMAS_DIRECTORY,
+            "filename_format": "search"
+        },
+        {
+            "generate_function": ts_handler_script.generate_create_handler,
+            "file_path": TS_HANDLERS_DIRECTORY,
+            "filename_format": "create"
+        },
+        {
+            "generate_function": ts_handler_script.generate_get_handler,
+            "file_path": TS_HANDLERS_DIRECTORY,
+            "filename_format": "get"
+        },
+        {
+            "generate_function": ts_handler_script.generate_list_handler,
+            "file_path": TS_HANDLERS_DIRECTORY,
+            "filename_format": "list"
+        },
+        {
+            "generate_function": ts_handler_script.generate_update_handler,
+            "file_path": TS_HANDLERS_DIRECTORY,
+            "filename_format": "update"
+        },
+        {
+            "generate_function": ts_handler_script.generate_delete_handler,
+            "file_path": TS_HANDLERS_DIRECTORY,
+            "filename_format": "delete"
+        },
+        {
+            "generate_function": ts_handler_script.generate_search_handler,
+            "file_path": TS_HANDLERS_DIRECTORY,
+            "filename_format": "search"
+        }
     ]
 }
 
