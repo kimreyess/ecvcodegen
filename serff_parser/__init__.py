@@ -4,11 +4,13 @@ from typing_extensions import Any
 import serff_parser.SERFF_domain as domain_parser
 import serff_parser.SERFF_handler as handler_parser
 import serff_parser.SERFF_repository as repository_parser
+import serff_parser.SERFF_iac as iac_parser
 # import serff_parser.SERFF_test_scripts as test_script_parser
 import helpers
 import os
 import subprocess
 import shutil
+from global_config import SOURCE_FILES_DIR
 
 class SERFFParser():
 
@@ -22,9 +24,9 @@ class SERFFParser():
     RUNTIME_REPOSITORY_CONFIG:"dict[str,dict[str,str]]" = {
         "python": {
             "repository_name": "ecv-python-serverless-framework",
-            "temp_dir": "source_files/py-serff/"
+            "temp_dir": SOURCE_FILES_DIR["python"]
+        },
 
-        }
     }
 
 
@@ -93,7 +95,21 @@ class SERFFParser():
         # domain_parser code here..
         pass
 
+    def parse_iac_template(self, iac_file_path:str)-> None:
+        iac_func_source_code: str = ""
+        new_source_code:str = ""
+
+        for module, attributes in self._model.items():
+            list_iac_source_code:list[str] = iac_parser.compose_iac_function_template(module, attributes, self.runtime)
+            for src_code in list_iac_source_code:
+                iac_func_source_code = iac_func_source_code + src_code
+
+        with open(iac_file_path, "r") as iac_file:
+            new_source_code = iac_file.read().replace("## [[CODEGEN_STUB_DO_NOT_REMOVE]]:", iac_func_source_code)
         
+        with open(iac_file_path, 'w') as file:
+            file.write(new_source_code)
+
     def generate_files(self) -> None:
         cwd:str = os.getcwd()
         for items in self._files:
@@ -133,16 +149,13 @@ class SERFFParser():
                 print(f"Error: {e}")            
         
     @staticmethod
-    def move_source_files(source_dir:str, destination_dir:str):
+    def move_source_files(source_dir:str, destination_dir:str) -> None:
             """
             Copy the contents of a directory to another directory.
             
             Args:
-            source_dir (str): The source directory.
-            destination_dir (str): The destination directory.
-            
-            Returns:
-            None
+                source_dir (str): The source directory.
+                destination_dir (str): The destination directory.
             """
 
             if not os.path.exists(destination_dir):
