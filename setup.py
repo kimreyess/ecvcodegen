@@ -15,8 +15,9 @@ setup(
         packages=find_packages(),
         install_requires=[
                 "pyyaml",
-                "typing_extensions"
-                "boto3['code_commit']"
+                "typing_extensions",
+                "boto3",
+                "boto3-stubs"
             ], # add any additional packages
         py_modules= ['main'],
         keywords=[ 'python', 'serff', 'ecv-code-generator'],

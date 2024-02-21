@@ -1,8 +1,12 @@
 venv/
 build/
 
+__pycache__/
+
 */__pycache__/
 
 */*/__pycache__/
 
 */*/*/__pycache__/
+
+source_files/py-serff/*
