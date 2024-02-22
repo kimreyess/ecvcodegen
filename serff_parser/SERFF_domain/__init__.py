@@ -32,8 +32,10 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     "typescript":[
         {
             "generate_function": ts_domain_script.generate_controller_source_code,
-            "file_path": TS_CONTROLLERS_DIRECTORY,
-            "filename_format": "{|module_name|}Controller"
+            "file_config":{
+                "file_path": TS_CONTROLLERS_DIRECTORY,
+                "filename_format": "{|module_name|}Controller",
+            }
         },
     ]
 }

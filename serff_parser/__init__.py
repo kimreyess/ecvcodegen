@@ -27,7 +27,10 @@ class SERFFParser():
             "repository_name": "ecv-python-serverless-framework",
             "temp_dir": SOURCE_FILES_DIR["python"]
         },
-
+        "typescript": {
+            "repository_name": "ecv-typescript-serverless-framework",
+            "temp_dir": SOURCE_FILES_DIR["typescript"]
+        },
     }
 
 

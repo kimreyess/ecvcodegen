@@ -1,5 +1,6 @@
 from typing_extensions import Any
 from serff_parser.SERFF_model import py_model_script
+from serff_parser.SERFF_model import ts_model_script
 # from serff_parser.SERFF_handler import ts_handler_script
 import helpers
 
@@ -7,7 +8,7 @@ import helpers
 PY_MODELS_DIRECTORY = "app/models/"
 
 #typescript directories
-TS_MODELS_DIRECTORY       = "app/models/"
+TS_MODELS_DIRECTORY       = "app/models/mongodb/"
 
 FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     "python":[
@@ -21,7 +22,14 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
         }
     ],
     "typescript":[
-
+        {
+            "generate_function": ts_model_script.generate_model_source_code,
+            "file_config":
+            {
+                "file_path": TS_MODELS_DIRECTORY,
+                "filename_format": "{|module_name|}Model"
+            }
+        }
     ]
 }
 

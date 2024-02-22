@@ -13,14 +13,13 @@ import_strings = f"""
     import {{ connectionMiddleware }} from "../../../repositories/mongodb/_connection";"""
 
 def generate_create_handler(module_name: str, module_attributes:dict[str, Any]):
-    class_name = helpers.to_camel_case(module_name)
     to_class_name = helpers.to_class(module_name)
     readable_var = helpers.to_readable_name(module_name)
     source_code = f"""\
     {import_strings}
-    import schema from "../_rules/schemas/{class_name}/create";
+    import schema from "../_rules/schemas/{to_class_name}/create";
     import {to_class_name}Controller from "../../../controllers/{to_class_name}Controller";
-    import {{ writePolicy }} from "../_rules/policies/{class_name}";
+    import {{ writePolicy }} from "../_rules/policies/{to_class_name}";
     
     interface RequestParameter extends APIGatewayProxyEvent {{
         request: {{"""
