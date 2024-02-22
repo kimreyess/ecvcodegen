@@ -59,3 +59,77 @@ def compose_file_path(file_config:dict[str, str], module_name:str, runtime:str)-
 
 def replace_module_name(file_format:str, to_replace:str)->str:
     return file_format.replace("{|module_name|}", to_replace)
+
+def get_fields(data_type:str, runtime:str)-> str:
+    fields_map:dict[str, Callable[..., str]] = {
+        "string": get_string_type,
+        "integer": get_integer_type,
+        "float": get_float_type,
+        "boolean": get_boolean_type,
+        "object": get_object_type,
+        "array": get_array_type,
+        "date": get_date_type
+    }
+    return fields_map[data_type](runtime)
+
+def get_string_type(runtime:str)->str:
+    str_map:dict[str, str] = {
+        "python": "str"
+    }
+
+    return str_map[runtime]
+
+def get_integer_type(runtime:str)->str:
+    str_map:dict[str, str] = {
+        "python": "int"
+    }
+
+    return str_map[runtime]
+
+def get_float_type(runtime:str)->str:
+    str_map:dict[str, str] = {
+        "python": "float"
+    }
+
+    return str_map[runtime]
+
+def get_boolean_type(runtime:str)->str:
+    str_map:dict[str, str] = {
+        "python": "bool"
+    }
+
+    return str_map[runtime]
+
+def get_date_type(runtime:str)->str:
+    str_map:dict[str, str] = {
+        "python": "dict[Any, Any]"
+    }
+
+    return str_map[runtime]
+
+def get_object_type(runtime:str)->str:
+    str_map:dict[str, str] = {
+        "python": "dict[str, Any]"
+    }
+
+    return str_map[runtime]
+
+def get_array_type(runtime:str)->str:
+    str_map:dict[str, str] = {
+        "python": "list"
+    }
+
+    return str_map[runtime]
+
+def py_define_properties(module_attributes:dict[str, str], runtime:str) -> str:
+    properties:str = """(
+                        default = None,"""
+    for attribute_name, attribute_value in module_attributes.items():
+        if attribute_name == "required":
+            if attribute_value == "false":
+                properties += """
+                        exclude = True,"""    
+    properties += """
+                    )"""
+
+    return properties

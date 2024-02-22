@@ -17,7 +17,8 @@ setup(
                 "pyyaml",
                 "typing_extensions",
                 "boto3",
-                "boto3-stubs"
+                "boto3-stubs",
+                "ecv_python_development"
             ], # add any additional packages
         py_modules= ['main'],
         keywords=[ 'python', 'serff', 'ecv-code-generator'],

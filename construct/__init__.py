@@ -17,6 +17,8 @@ def generate(parameters:dict[str, Any])->None:
     serff_parser.parse_repository()
     print("Generating handler files..")
     serff_parser.parse_handler()
+    print("Generating model files..")
+    serff_parser.parse_model()
     print("Generating test scripts..")
     ## Iteration 2
     print("Fetching SERFF source files..")
