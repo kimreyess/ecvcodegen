@@ -4,6 +4,7 @@ from typing_extensions import Any
 import serff_parser.SERFF_domain as domain_parser
 import serff_parser.SERFF_handler as handler_parser
 import serff_parser.SERFF_repository as repository_parser
+import serff_parser.SERFF_model as model_parser
 import serff_parser.SERFF_iac as iac_parser
 # import serff_parser.SERFF_test_scripts as test_script_parser
 import helpers
@@ -81,6 +82,13 @@ class SERFFParser():
         temp_files:list[dict[str, Any]] = []
         for module, attributes in self._model.items():
             temp_files = temp_files + handler_parser.create_handlers(module, attributes, self.runtime)
+        self._files = self._files + temp_files
+        pass
+
+    def parse_model(self) -> None:
+        temp_files:list[dict[str, Any]] = []
+        for module, attributes in self._model.items():
+            temp_files = temp_files + model_parser.create_models(module, attributes, self.runtime)
         self._files = self._files + temp_files
         pass
 

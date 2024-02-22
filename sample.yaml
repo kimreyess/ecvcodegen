@@ -25,10 +25,10 @@ __Modules__:
     Document:
         data:
             Title: string
-            Revision: int
-            Numerical Code: number
+            Revision: integer
+            Numerical Code: integer
             Description: string
             Attachments:
-                data_type: file-upload
+                type: file-upload
                 allowed: ["jpg", "png", "csv", "pdf", "txt", "doc"]
                 max_upload_size: 10

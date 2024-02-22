@@ -1,10 +1,10 @@
 from typing_extensions import Any
-from serff_parser.SERFF_repository import py_repository_script
+from serff_parser.SERFF_model import py_model_script
 # from serff_parser.SERFF_handler import ts_handler_script
 import helpers
 
 #python repositories
-PY_REPOSITORIES_DIRECTORY = "app/models/"
+PY_MODELS_DIRECTORY = "app/models/"
 
 #typescript directories
 TS_MODELS_DIRECTORY       = "app/models/"
@@ -12,11 +12,11 @@ TS_MODELS_DIRECTORY       = "app/models/"
 FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     "python":[
         {
-            "generate_function": py_repository_script.generate_repository_source_code,
+            "generate_function": py_model_script.generate_model_source_code,
             "file_config":
             {
-                "file_path": PY_REPOSITORIES_DIRECTORY,
-                "filename_format": "{|module_name|}_repository"
+                "file_path": PY_MODELS_DIRECTORY,
+                "filename_format": "{|module_name|}_model"
             }
         }
     ],
@@ -25,7 +25,7 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     ]
 }
 
-def create_repositories(module_name:str, module_attributes:dict[str, Any], runtime:str) -> list[dict[str, str]]:
+def create_models(module_name:str, module_attributes:dict[str, Any], runtime:str) -> list[dict[str, str]]:
     files_to_append:list[dict[str, str]] = []
     
     for functions in FUNCTION_RUNTIME_MAP[runtime]:
