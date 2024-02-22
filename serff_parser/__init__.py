@@ -107,6 +107,10 @@ class SERFFParser():
         with open(iac_file_path, "r") as iac_file:
             new_source_code = iac_file.read().replace("## [[CODEGEN_STUB_DO_NOT_REMOVE]]:", iac_func_source_code)
         
+        ##NOTE: MAINTAIN INDENTATION!!
+        new_source_code = new_source_code + f"""
+  ## [[CODEGEN_STUB_DO_NOT_REMOVE]]:"""
+        
         with open(iac_file_path, 'w') as file:
             file.write(new_source_code)
 
