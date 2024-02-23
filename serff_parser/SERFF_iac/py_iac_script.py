@@ -8,7 +8,7 @@ def generate_lambda_create_handler_iac_source_code(module_name:str, module_attri
     handler: app/handlers/http/{module_name}/create_{module_name}_handler.handler
     events:
       - http:
-          path: /
+          path: /{module_name}/
           method: post
           cors: true
           # authorizer: # uncomment for auth
@@ -35,7 +35,7 @@ def generate_lambda_update_handler_iac_source_code(module_name:str, module_attri
     handler: app/handlers/http/{module_name}/update_{module_name}_handler.handler
     events:
       - http:
-          path: /{{id}}
+          path: /{module_name}/{{id}}
           method: patch
           cors: true
           # authorizer: # uncomment for auth
@@ -63,7 +63,7 @@ def generate_lambda_list_handler_iac_source_code(module_name:str, module_attribu
     handler: app/handlers/http/{module_name}/list_{module_name}_handler.handler
     events:
       - http:
-          path: /list/
+          path: /{module_name}/list
           method: post
           cors: true
           # authorizer: # uncomment for auth
@@ -90,7 +90,7 @@ def generate_lambda_get_handler_iac_source_code(module_name:str, module_attribut
     handler: app/handlers/http/{module_name}/get_{module_name}_handler.handler
     events:
       - http:
-          path: /{{id}}
+          path: /{module_name}/{{id}}
           method: get
           cors: true
           # authorizer: # uncomment for auth
@@ -117,7 +117,7 @@ def generate_lambda_delete_handler_iac_source_code(module_name:str, module_attri
     handler: app/handlers/http/{module_name}/delete_{module_name}_handler.handler
     events:
       - http:
-          path: /{{id}}
+          path: /{module_name}/{{id}}
           method: delete
           cors: true
           # authorizer: # uncomment for auth

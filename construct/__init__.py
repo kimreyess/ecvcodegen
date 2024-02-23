@@ -19,7 +19,7 @@ def generate(parameters:dict[str, Any])->None:
     serff_parser.parse_handler()
     print("Generating model files..")
     serff_parser.parse_model()
-    print("Generating test scripts..")
+    # print("Generating test scripts..")
     ## Iteration 2
     print("Fetching SERFF source files..")
     serff_parser.fetch_source_files()
@@ -46,9 +46,15 @@ def add_module(parameters:dict[str, Any])->None:
     serff_parser.parse_repository()
     print("Generating handler files..")
     serff_parser.parse_handler()
-    print("Generating test scripts..")
+    print("Generating model files..")
+    serff_parser.parse_model()
+    # print("Generating test scripts..")
     print("Updating serverless.yml")
     serff_parser.parse_iac_template(iac_path)
+    
+    serff_parser.generate_files()
+    
+    print(f"New modules successfully created.")
 
 def generate_global_infra(parameters:dict[str, Any])-> None:
     ## Iteration 3
