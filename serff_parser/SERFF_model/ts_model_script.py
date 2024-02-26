@@ -1,7 +1,7 @@
 import textwrap
 from typing_extensions import Any 
 import helpers
-
+RUNTIME = "typescript"
 def generate_model_source_code(module_name:str, module_attributes:dict[str, Any])->str:
     class_name: str = helpers.convert_to_system_name(module_name, "class")
     db_name: str = helpers.to_variable(module_name)
@@ -13,26 +13,10 @@ def generate_model_source_code(module_name:str, module_attributes:dict[str, Any]
 
     const {class_name}Schema = new Schema({{"""
     for attribute, attribute_items in module_attributes.items():
-            if(attribute_items.get("data_type", "class") == 'date'):
-                data_type = 'Date'
-            elif(attribute_items.get("data_type", "class") == 'class'):
-                data_type = 'String'
-            elif(attribute_items.get("data_type", "class") == 'int'):
-                data_type = 'Number'
-            elif(attribute_items.get("data_type", "class") == 'number'):
-                data_type = 'Number'
-            elif(attribute_items.get("data_type", "class") == 'file-upload'):
-                data_type = 'String'
-            elif(attribute_items.get("data_type", "class") == 'string'):
-                data_type = 'String'
-            else:
-                data_type = attribute_items.get("data_type", "class")
-            
-
-            field = helpers.to_camel_case(attribute)
-            source_code += f"""
+        field = helpers.to_camel_case(attribute)
+        source_code += f"""
         {field}: {{
-            type: {data_type}
+            type: {helpers.get_fields(attribute_items.get('data_type', 'object'), RUNTIME)}
         }},"""   
     source_code += f"""
         logs: Array,

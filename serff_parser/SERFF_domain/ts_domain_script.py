@@ -1,19 +1,16 @@
 import textwrap
 from typing_extensions import Any
-
 import helpers
+RUNTIME = "typescript"
 
 def generate_controller_source_code(module_name:str, module_attributes:dict[str, Any]):
     class_name = helpers.to_class(module_name)
     class_name_lowercase = helpers.to_camel_case(module_name)
     
     source_code = f"""\
-    import CognitoIdentityServiceProvider from "../services/aws/cognito";
     import CreateAdminAuditLogEvent from "../emitters/create-admin-audit-log";
-    import {{ generateRandomString }} from "../lib/helpers/randomizer";
     import {{ getCurrentDateTime }} from "../lib/helpers/datetime";
     import {class_name}Repository from "../repositories/mongodb/{class_name}Repository";
-    import {{ EmailException, ResourceNotFoundException, UnauthorizedAccessException, }} from "../lib/commons/exceptions";
 
     interface RequesterInterface {{
         cognitoId: string;
@@ -62,20 +59,14 @@ def generate_controller_source_code(module_name:str, module_attributes:dict[str,
         async create(
             payload: {{"""
     for attribute, attribute_items in module_attributes.items():
-            if(attribute_items.get("data_type", "class") == 'date'):
-                data_type = 'Date'
-            elif(attribute_items.get("data_type", "class") == 'class'):
-                data_type = 'string'
-            elif(attribute_items.get("data_type", "class") == 'int'):
-                data_type = 'number'
-            elif(attribute_items.get("data_type", "class") == 'file-upload'):
-                data_type = 'string'
-            else:
-                data_type = attribute_items.get("data_type", "class")
+        if((helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME)) == 'String'):
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME).lower())
+        else: 
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME))
             
 
-            field = helpers.to_camel_case(attribute)
-            source_code += f"""
+        field = helpers.to_camel_case(attribute)
+        source_code += f"""
                 {field}: {data_type};"""   
     source_code += f"""
             }},
@@ -134,20 +125,14 @@ def generate_controller_source_code(module_name:str, module_attributes:dict[str,
             id: string,
             payload: {{"""
     for attribute, attribute_items in module_attributes.items():
-            if(attribute_items.get("data_type", "class") == 'date'):
-                data_type = 'Date'
-            elif(attribute_items.get("data_type", "class") == 'class'):
-                data_type = 'string'
-            elif(attribute_items.get("data_type", "class") == 'int'):
-                data_type = 'number'
-            elif(attribute_items.get("data_type", "class") == 'file-upload'):
-                data_type = 'string'
-            else:
-                data_type = attribute_items.get("data_type", "class")
+        if((helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME)) == 'String'):
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME).lower())
+        else: 
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME))
             
 
-            field = helpers.to_camel_case(attribute)
-            source_code += f"""
+        field = helpers.to_camel_case(attribute)
+        source_code += f"""
                 {field}: {data_type};"""   
     source_code += f"""
             }},
@@ -211,21 +196,15 @@ def generate_controller_source_code(module_name:str, module_attributes:dict[str,
     source_code += f"""
         async find(id: string): Promise<{{"""
     for attribute, attribute_items in module_attributes.items():
-            if(attribute_items.get("data_type", "class") == 'date'):
-                data_type = 'Date'
-            elif(attribute_items.get("data_type", "class") == 'class'):
-                data_type = 'string'
-            elif(attribute_items.get("data_type", "class") == 'int'):
-                data_type = 'number'
-            elif(attribute_items.get("data_type", "class") == 'file-upload'):
-                data_type = 'string'
-            else:
-                data_type = attribute_items.get("data_type", "class")
+        if((helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME)) == 'String'):
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME).lower())
+        else: 
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME))
             
 
-            field = helpers.to_camel_case(attribute)
-            source_code += f"""
-                {field}: {data_type};"""   
+        field = helpers.to_camel_case(attribute)
+        source_code += f"""
+            {field}: {data_type};"""   
     source_code += f"""
                 logs: string;
         }}> {{

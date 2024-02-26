@@ -10,3 +10,6 @@ __pycache__/
 */*/*/__pycache__/
 
 source_files/py-serff/*
+source_files/ts-serff/*
+
+test-customer/*
