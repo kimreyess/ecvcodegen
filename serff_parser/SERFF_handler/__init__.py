@@ -60,68 +60,106 @@ FUNCTION_RUNTIME_MAP:dict[str,list[Any]] = {
     "typescript":[
         {
             "generate_function": ts_handler_policies.generate_rule_policies_handler,
-            "file_path": TS_POLICIES_DIRECTORY,
-            "filename_format": "{|module_name|}"
+            "file_config":{
+                "file_path": TS_POLICIES_DIRECTORY,
+                "filename_format": "{|module_name|}",
+            }
         },
         {
             "generate_function": ts_handler_schema.generate_create_rule_schema_code,
-            "file_path": TS_SCHEMAS_DIRECTORY,
-            "filename_format": "create"
+            "file_config":{
+                "file_path": TS_SCHEMAS_DIRECTORY,
+                "filename_format": "create",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_schema.generate_get_rule_schema_code,
-            "file_path": TS_SCHEMAS_DIRECTORY,
-            "filename_format": "get"
+            "file_config":{
+                "file_path": TS_SCHEMAS_DIRECTORY,
+                "filename_format": "get",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_schema.generate_delete_rule_schema_code,
-            "file_path": TS_SCHEMAS_DIRECTORY,
-            "filename_format": "delete"
+            "file_config":{
+                "file_path": TS_SCHEMAS_DIRECTORY,
+                "filename_format": "delete",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_schema.generate_update_rule_schema_code,
-            "file_path": TS_SCHEMAS_DIRECTORY,
-            "filename_format": "update"
+            "file_config":{
+                "file_path": TS_SCHEMAS_DIRECTORY,
+                "filename_format": "update",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_schema.generate_list_rule_schema_code,
-            "file_path": TS_SCHEMAS_DIRECTORY,
-            "filename_format": "list"
+            "file_config":{
+                "file_path": TS_SCHEMAS_DIRECTORY,
+                "filename_format": "list",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_schema.generate_search_rule_schema_code,
-            "file_path": TS_SCHEMAS_DIRECTORY,
-            "filename_format": "search"
+            "file_config":{
+                "file_path": TS_SCHEMAS_DIRECTORY,
+                "filename_format": "search",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_script.generate_create_handler,
-            "file_path": TS_HANDLERS_DIRECTORY,
-            "filename_format": "create"
+            "file_config":{
+                "file_path": TS_HANDLERS_DIRECTORY,
+                "filename_format": "create",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_script.generate_get_handler,
-            "file_path": TS_HANDLERS_DIRECTORY,
-            "filename_format": "get"
+            "file_config":{
+                "file_path": TS_HANDLERS_DIRECTORY,
+                "filename_format": "get",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_script.generate_list_handler,
-            "file_path": TS_HANDLERS_DIRECTORY,
-            "filename_format": "list"
+            "file_config":{
+                "file_path": TS_HANDLERS_DIRECTORY,
+                "filename_format": "list",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_script.generate_update_handler,
-            "file_path": TS_HANDLERS_DIRECTORY,
-            "filename_format": "update"
+            "file_config":{
+                "file_path": TS_HANDLERS_DIRECTORY,
+                "filename_format": "update",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_script.generate_delete_handler,
-            "file_path": TS_HANDLERS_DIRECTORY,
-            "filename_format": "delete"
+            "file_config":{
+                "file_path": TS_HANDLERS_DIRECTORY,
+                "filename_format": "delete",
+                "sub_directories": "{|module_name|}/"
+            }
         },
         {
             "generate_function": ts_handler_script.generate_search_handler,
-            "file_path": TS_HANDLERS_DIRECTORY,
-            "filename_format": "search"
+            "file_config":{
+                "file_path": TS_HANDLERS_DIRECTORY,
+                "filename_format": "search",
+                "sub_directories": "{|module_name|}/"
+            }
         }
     ]
 }

@@ -74,50 +74,57 @@ def get_fields(data_type:str, runtime:str)-> str:
 
 def get_string_type(runtime:str)->str:
     str_map:dict[str, str] = {
-        "python": "str"
+        "python": "str",
+        "typescript": "String"
     }
 
     return str_map[runtime]
 
 def get_integer_type(runtime:str)->str:
     str_map:dict[str, str] = {
-        "python": "int"
+        "python": "int",
+        "typescript": "Number"
     }
 
     return str_map[runtime]
 
 def get_float_type(runtime:str)->str:
     str_map:dict[str, str] = {
-        "python": "float"
+        "python": "float",
+        "typescript": "Number"
     }
 
     return str_map[runtime]
 
 def get_boolean_type(runtime:str)->str:
     str_map:dict[str, str] = {
-        "python": "bool"
+        "python": "bool",
+        "typescript": "Boolean"
     }
 
     return str_map[runtime]
 
 def get_date_type(runtime:str)->str:
     str_map:dict[str, str] = {
-        "python": "string"
-        # "python": "dict[Any, Any]"
+        "python": "string",
+        # "python": "dict[Any, Any]",
+        "typescript": "Date"
     }
 
     return str_map[runtime]
 
 def get_object_type(runtime:str)->str:
     str_map:dict[str, str] = {
-        "python": "dict[str, Any]"
+        "python": "dict[str, Any]",
+        "typescript": "Object"
     }
 
     return str_map[runtime]
 
 def get_array_type(runtime:str)->str:
     str_map:dict[str, str] = {
-        "python": "list"
+        "python": "list",
+        "typescript": "Array"
     }
 
     return str_map[runtime]

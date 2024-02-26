@@ -16,10 +16,11 @@ import_strings = f"""
 def generate_rule_policies_handler(module_name: str, module_attributes:dict[str, Any]):
     module = helpers.to_camel_case(module_name)
     source_code = f"""\
-        export const writePolicy = ["*:*", "{module}s:*", "{module}s:write"];
-        export const readPolicy = ["*:*", "{module}s:*", "{module}s:read"];
-        export const patchPolicy = ["*:*", "{module}s:*", "{module}s:patch"];
-        export const deletePolicy = ["*:*", "{module}s:*", "{module}s:delete"];
+        export const writePolicy = ["*:*", "{module}:*", "{module}:write"];
+        export const readPolicy = ["*:*", "{module}:*", "{module}:read"];
+        export const patchPolicy = ["*:*", "{module}:*", "{module}:patch"];
+        export const deletePolicy = ["*:*", "{module}:*", "{module}:delete"];
+        export const listPolicy = ["*:*", "{module}:*", "{module}:list"];
     """
 
     return textwrap.dedent(source_code)
