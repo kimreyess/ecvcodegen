@@ -5,7 +5,7 @@ from serff_parser.SERFF_repository import ts_model_script
 import helpers
 
 #python repositories
-PY_REPOSITORIES_DIRECTORY = "app/repositories/"
+PY_REPOSITORIES_DIRECTORY = "app/services/repositories/"
 
 #typescript directories
 TS_REPOSITORIES_DIRECTORY = "app/repositories/mongodb/"

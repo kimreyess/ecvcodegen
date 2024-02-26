@@ -5,7 +5,7 @@ import textwrap
 from typing_extensions import Any
 import_strings = f"""
     from app.rules.validator import validate_web_request
-    from app.policies.validator import validate_role_permission
+    # from app.policies.validator import validate_role_permission
 
     from base_handlers.web import spawn_handler, app
     from base_handlers.database import initiate_database
@@ -32,7 +32,7 @@ def generate_create_handler(module_name: str, module_attributes:dict[str, Any]) 
 
 
     @validate_web_request(schema={class_name}.compose_schema())
-    @validate_role_permission(policy=policy, module="{module_name}")
+    # @validate_role_permission(policy=policy, module="{module_name}")
     @initiate_database(databases=["mongodb"])
     def handler(event, context):
         return spawn_handler(event, context, process)
@@ -58,7 +58,7 @@ def generate_get_handler(module_name: str, module_attributes:dict[str, Any]):
 
 
     @validate_web_request(schema={class_name}.compose_schema(['id']))
-    @validate_role_permission(policy=policy, module="{module_name}")
+    # @validate_role_permission(policy=policy, module="{module_name}")
     @initiate_database(databases=["mongodb"])
     def handler(event, context):
         return spawn_handler(event, context, process)
@@ -78,12 +78,12 @@ def generate_list_handler(module_name: str, module_attributes:dict[str, Any]):
     def process():
         filter_by_roles = []
         {module_name} = {class_name}({class_name}Repository(), app.validated_body)
-        response = {module_name}.list(app.validated_body)
+        response = {module_name}.list_{module_name}(app.validated_body)
 
         return SuccessResponse(**response)
 
     @validate_web_request(schema={class_name}.compose_schema("list"))
-    @validate_role_permission(policy=policy, module="{module_name}")
+    # @validate_role_permission(policy=policy, module="{module_name}")
     @initiate_database(databases=["mongodb"])
     def handler(event, context):
         return spawn_handler(event, context, process)
@@ -111,7 +111,7 @@ def generate_update_handler(module_name: str, module_attributes:dict[str, Any]):
 
 
     @validate_web_request(schema={class_name}.compose_schema())
-    @validate_role_permission(policy=policy, module="{module_name}")
+    # @validate_role_permission(policy=policy, module="{module_name}")
     @initiate_database(databases=["mongodb"])
     def handler(event, context):
         return spawn_handler(event, context, process)
@@ -137,7 +137,7 @@ def generate_delete_handler(module_name: str, module_attributes:dict[str, Any]):
 
 
     @validate_web_request(schema={class_name}.compose_schema(['{module_name}_id']))
-    @validate_role_permission(policy=policy, module="{module_name}")
+    # @validate_role_permission(policy=policy, module="{module_name}")
     @initiate_database(databases=["mongodb"])
     def handler(event, context):
         return spawn_handler(event, context, process)

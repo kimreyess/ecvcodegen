@@ -102,7 +102,8 @@ def get_boolean_type(runtime:str)->str:
 
 def get_date_type(runtime:str)->str:
     str_map:dict[str, str] = {
-        "python": "dict[Any, Any]"
+        "python": "string"
+        # "python": "dict[Any, Any]"
     }
 
     return str_map[runtime]

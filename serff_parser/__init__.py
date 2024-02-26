@@ -24,7 +24,7 @@ class SERFFParser():
 
     RUNTIME_REPOSITORY_CONFIG:"dict[str,dict[str,str]]" = {
         "python": {
-            "repository_name": "ecv-python-serverless-framework",
+            "repository_name": "ecv-python-serverless-framework-test",
             "temp_dir": SOURCE_FILES_DIR["python"]
         },
 
