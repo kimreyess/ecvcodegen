@@ -67,7 +67,7 @@ def generate_lambda_get_handler_iac_source_code(module_name:str, module_attribut
     events:
       - http:
           path: /{helpers.to_class(module_name)}/{{id}}
-          method: post
+          method: get
           cors: true
           # Uncomment this if you wish to attach an authorizer for your functions
           authorizer:

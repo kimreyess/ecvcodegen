@@ -1,8 +1,9 @@
 from __future__ import annotations
-
 import helpers
 import textwrap
 from typing_extensions import Any
+RUNTIME = "typescript"
+
 import_strings = f"""
     import {{ APIGatewayProxyEvent, Context }} from "aws-lambda";
     import middy from "@middy/core";
@@ -24,20 +25,13 @@ def generate_create_handler(module_name: str, module_attributes:dict[str, Any]):
     interface RequestParameter extends APIGatewayProxyEvent {{
         request: {{"""
     for attribute, attribute_items in module_attributes.items():
-            if(attribute_items.get("data_type", "class") == 'date'):
-                data_type = 'Date'
-            elif(attribute_items.get("data_type", "class") == 'class'):
-                data_type = 'string'
-            elif(attribute_items.get("data_type", "class") == 'int'):
-                data_type = 'number'
-            elif(attribute_items.get("data_type", "class") == 'file-upload'):
-                data_type = 'string'
-            else:
-                data_type = attribute_items.get("data_type", "class")
-            
+        if((helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME)) == 'String'):
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME).lower())
+        else: 
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME))
 
-            field = helpers.to_camel_case(attribute)
-            source_code += f"""
+        field = helpers.to_camel_case(attribute)
+        source_code += f"""
             {field}: {data_type};"""
     source_code += f"""
         }};
@@ -104,7 +98,7 @@ def generate_get_handler(module_name: str, module_attributes:dict[str, Any]):
     ): Promise<Object> => {{
         try {{
             let controller = new {to_class_name}Controller();
-            const data = await controller.find(event.request.id, event.requester);
+            const data = await controller.find(event.request.id);
 
             return successResponse({{
                 data,
@@ -206,20 +200,13 @@ def generate_update_handler(module_name: str, module_attributes:dict[str, Any]):
         request: {{
             id: string;"""
     for attribute, attribute_items in module_attributes.items():
-            if(attribute_items.get("data_type", "class") == 'date'):
-                data_type = 'Date'
-            elif(attribute_items.get("data_type", "class") == 'class'):
-                data_type = 'string'
-            elif(attribute_items.get("data_type", "class") == 'int'):
-                data_type = 'number'
-            elif(attribute_items.get("data_type", "class") == 'file-upload'):
-                data_type = 'string'
-            else:
-                data_type = attribute_items.get("data_type", "class")
-            
+        if((helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME)) == 'String'):
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME).lower())
+        else: 
+            data_type = (helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME))
 
-            field = helpers.to_camel_case(attribute)
-            source_code += f"""
+        field = helpers.to_camel_case(attribute)
+        source_code += f"""
             {field}: {data_type};"""
     source_code += f"""
         }};
@@ -266,7 +253,7 @@ def generate_delete_handler(module_name: str, module_attributes:dict[str, Any]):
     readable_var = helpers.to_readable_name(module_name)
     source_code = f"""\
     {import_strings}
-    import schema from "../_rules/schemas/{class_name}/create";
+    import schema from "../_rules/schemas/{class_name}/delete";
     import {{ deletePolicy }} from "../_rules/policies/{class_name}";
     import {to_class_name}Controller from "../../../controllers/{to_class_name}Controller";
     
@@ -313,7 +300,7 @@ def generate_search_handler(module_name: str, module_attributes:dict[str, Any]):
     to_class_name = helpers.to_class(module_name)
     source_code = f"""\
     {import_strings}
-    import schema from "../_rules/schemas/{class_name}/create";
+    import schema from "../_rules/schemas/{class_name}/search";
     import {{ listPolicy }} from "../_rules/policies/{class_name}";
     import {to_class_name}Controller from "../../../controllers/{to_class_name}Controller";
     
