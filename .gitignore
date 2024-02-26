@@ -13,3 +13,6 @@ source_files/py-serff/*
 source_files/ts-serff/*
 
 test-customer/*
+
+dist/
+ecv_serff_gen.egg-info/
