@@ -253,7 +253,7 @@ def generate_delete_handler(module_name: str, module_attributes:dict[str, Any]):
     readable_var = helpers.to_readable_name(module_name)
     source_code = f"""\
     {import_strings}
-    import schema from "../_rules/schemas/{class_name}/create";
+    import schema from "../_rules/schemas/{class_name}/delete";
     import {{ deletePolicy }} from "../_rules/policies/{class_name}";
     import {to_class_name}Controller from "../../../controllers/{to_class_name}Controller";
     
@@ -300,7 +300,7 @@ def generate_search_handler(module_name: str, module_attributes:dict[str, Any]):
     to_class_name = helpers.to_class(module_name)
     source_code = f"""\
     {import_strings}
-    import schema from "../_rules/schemas/{class_name}/create";
+    import schema from "../_rules/schemas/{class_name}/search";
     import {{ listPolicy }} from "../_rules/policies/{class_name}";
     import {to_class_name}Controller from "../../../controllers/{to_class_name}Controller";
     

@@ -29,8 +29,7 @@ def generate_update_rule_schema_code(module_name:str, module_attributes:dict[str
     # class_name = helpers.to_class(module_name)
     # class_name_lowercase = helpers.to_camel_case(module_name)
     
-    source_code = f"""
-    import Joi from "joi";
+    source_code = f"""import Joi from "joi";
 
     // Schema
     export default Joi.object({{
