@@ -1,8 +1,8 @@
 from __future__ import annotations
-
 import helpers
 import textwrap
 from typing_extensions import Any
+RUNTIME = "typescript"
 
 
 def generate_create_rule_schema_code(module_name:str, module_attributes:dict[str, Any]):
@@ -15,21 +15,9 @@ def generate_create_rule_schema_code(module_name:str, module_attributes:dict[str
     // Schema
     export default Joi.object({{"""
     for attribute, attribute_items in module_attributes.items():
-            if(attribute_items.get("data_type", "class") == 'date'):
-                data_type = 'Date'
-            elif(attribute_items.get("data_type", "class") == 'class'):
-                data_type = 'string'
-            elif(attribute_items.get("data_type", "class") == 'int'):
-                data_type = 'number'
-            elif(attribute_items.get("data_type", "class") == 'file-upload'):
-                data_type = 'string'
-            else:
-                data_type = attribute_items.get("data_type", "class")
-            
-
-            field = helpers.to_camel_case(attribute)
-            source_code += f"""
-        {field}: Joi.{data_type}().required(),"""
+        field = helpers.to_camel_case(attribute)
+        source_code += f"""
+        {field}: Joi.{(helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME).lower())}().required(),"""
 
     source_code += f"""
     }})"""
@@ -41,28 +29,15 @@ def generate_update_rule_schema_code(module_name:str, module_attributes:dict[str
     # class_name = helpers.to_class(module_name)
     # class_name_lowercase = helpers.to_camel_case(module_name)
     
-    source_code = f"""
-    import Joi from "joi";
+    source_code = f"""import Joi from "joi";
 
     // Schema
     export default Joi.object({{
         id: Joi.string().required(),"""
     for attribute, attribute_items in module_attributes.items():
-            if(attribute_items.get("data_type", "class") == 'date'):
-                data_type = 'Date'
-            elif(attribute_items.get("data_type", "class") == 'class'):
-                data_type = 'string'
-            elif(attribute_items.get("data_type", "class") == 'int'):
-                data_type = 'number'
-            elif(attribute_items.get("data_type", "class") == 'file-upload'):
-                data_type = 'string'
-            else:
-                data_type = attribute_items.get("data_type", "class")
-            
-
-            field = helpers.to_camel_case(attribute)
-            source_code += f"""
-        {field}: Joi.{data_type}(),"""
+        field = helpers.to_camel_case(attribute)
+        source_code += f"""
+        {field}: Joi.{(helpers.get_fields(attribute_items.get('data_type', 'string'), RUNTIME).lower())}(),"""
 
     source_code += f"""
     }})"""

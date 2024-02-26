@@ -153,26 +153,24 @@ def generate_controller_source_code(module_name:str, module_attributes:dict[str,
             );
 
             const requesterDetails = {{
-                createdBy: requester.name,
-                createdByCognitoId: requester.cognitoId,
-                createdAt: getCurrentDateTime(),
+                updatedBy: requester.name,
+                updatedByCognitoId: requester.cognitoId,
+                updatedAt: getCurrentDateTime(),
             }};
 
-            const result = await {class_name_lowercase}.save({{
-                ...payload,
-                ...requesterDetails,
-            }});
 
             const auditLog = {{
-                moduleId: result._id,
+                moduleId: id,
                 module: "{class_name_lowercase}",
                 service: process.env["SERVICE_NAME"] || "N/A",
-                type: "create",
-                reference: "Create {class_name_lowercase} Package Data",
+                type: "update",
+                reference: "Update {class_name_lowercase} Data",
                 ...requesterDetails,
             }};
 
-            const updated = await {class_name_lowercase}.update(result._id, {{
+            const updated = await {class_name_lowercase}.update(id, {{
+                ...payload,
+                ...requesterDetails,
                 $push: {{
                     logs: {{
                         $each: [auditLog], // Element to be added
@@ -185,7 +183,7 @@ def generate_controller_source_code(module_name:str, module_attributes:dict[str,
             await createAuditLogEvent.process({{
                 ...auditLog,
                 eventData: payload,
-                previousData: {{}},
+                previousData,
             }});
 
             return updated;
