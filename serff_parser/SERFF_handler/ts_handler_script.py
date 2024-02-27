@@ -4,8 +4,7 @@ import textwrap
 from typing_extensions import Any
 RUNTIME = "typescript"
 
-import_strings = f"""
-    import {{ APIGatewayProxyEvent, Context }} from "aws-lambda";
+import_strings = f"""import {{ APIGatewayProxyEvent, Context }} from "aws-lambda";
     import middy from "@middy/core";
     import {{ tracer, captureLambdaHandler }} from "../../../lib/commons/powertools";
     import {{ successResponse, errorResponse }} from "../../../lib/commons/response";
