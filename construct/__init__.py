@@ -2,6 +2,9 @@ from typing_extensions import Any
 import serff_parser as _parser
 from global_config import SOURCE_FILES_DIR
 
+import yaml
+import subprocess
+
 def generate(parameters:dict[str, Any])->None:
     
     serff_parser              = _parser.SERFFParser(parameters)
@@ -62,7 +65,24 @@ def generate_global_infra(parameters:dict[str, Any])-> None:
     ## Iteration 3
     pass
 
-def run_init():
+def project_init(parameters:dict[str, Any]) -> None:
     ## create a source_files directory in home directory of your terminal
     ## check if serff is existing in your aws account, need to make sure that the current access keys is from ECV POC
+    try:
+        with open("project.config.yml", "r") as project_config_file:
+            project_config = yaml.safe_load(project_config_file.read())
+            print(project_config)
+            runtime:str = project_config["RUNTIME"]
+
+            if runtime == 'typescript':
+                subprocess.run(["npm", "install"])
+                subprocess.run(["serverless", "plugin", "install", '-n', 'serverless-offline'])
+            elif runtime == 'python':
+                print("YAHOOOOOO!")
+
+    except Exception:
+        print("Project Config file not found.")
+        exit(1)
+
+
     pass

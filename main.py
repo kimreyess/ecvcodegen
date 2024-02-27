@@ -10,7 +10,8 @@ import messages.help as _help
 
 CONSTRUCTS:dict[str, Any]= {
     "generate":_construct.generate,
-    "add-module":_construct.add_module
+    "add-module":_construct.add_module,
+    "project_init":_construct.project_init
 }
 
 def run_parser() -> None:
@@ -35,6 +36,14 @@ def run_parser() -> None:
                         action=_validation.ValidateAddModuleCommand,
                         metavar=('{YAML File}'),
                         help=dedent(_help.HELP_ADD_MODULE_MSG)
+    )
+    
+    parser.add_argument('--project-init',
+                        required=False,
+                        nargs=0,
+                        dest='construct',
+                        action=_validation.ValidateProjectInitCommand,
+                        help=dedent(_help.HELP_PROJECT_INIT_MSG)
     )
 
     args = parser.parse_args()

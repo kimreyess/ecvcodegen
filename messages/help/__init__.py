@@ -13,3 +13,6 @@ HELP_ADD_MODULE_MSG = """\
 Add new modules for an existing microservice.
     Required Parameter:
         [1] YAML File = Metadata of the domain"""
+
+HELP_PROJECT_INIT_MSG = """\
+Initialize project by installing necessary dependencies to run a SERFF Project."""

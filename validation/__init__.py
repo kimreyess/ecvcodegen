@@ -29,6 +29,11 @@ class ValidateAddModuleCommand(argparse.Action):
         check_file_param(filename)  
         setattr(args, self.dest, ("add_module", values))
 
+
+class ValidateProjectInitCommand(argparse.Action):
+    def __call__(self, parser: Any, args: Any, values: str | Sequence[Any], option_string: Optional[str|None]=None) -> None: # type: ignore
+        setattr(args, self.dest, ("project_init", values))
+
 #VALIDATION METHODS
 def get_parameters(arg_values:Sequence[Any], parameters:dict[str, str | None]) -> None:
     
