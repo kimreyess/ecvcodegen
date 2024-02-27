@@ -11,7 +11,7 @@ import_strings = f"""
     import {{ successResponse, errorResponse }} from "../../../lib/commons/response";
     import schemaValidator from "../_rules/schemas/validate";
     import policyValidator from "../_rules/policies/validate";
-    import {{ connectionMiddleware }} from "../../../repositories/mongodb/_connection";"""
+    import {{ connectionMiddleware, localMongoDBConnectionMiddleware }} from "../../../repositories/mongodb/_connection";"""
 
 def generate_create_handler(module_name: str, module_attributes:dict[str, Any]):
     to_class_name = helpers.to_class(module_name)
@@ -62,10 +62,10 @@ def generate_create_handler(module_name: str, module_attributes:dict[str, Any]):
     }};
 
     export const handler = middy(execute)
-    .use(captureLambdaHandler(tracer))
-    .use(policyValidator(writePolicy))
+    //.use(captureLambdaHandler(tracer))
+    //.use(policyValidator(writePolicy))
     .use(schemaValidator(schema))
-    .use(connectionMiddleware);
+    .use(localMongoDBConnectionMiddleware);
     """
 
     return textwrap.dedent(source_code)
@@ -109,10 +109,10 @@ def generate_get_handler(module_name: str, module_attributes:dict[str, Any]):
     }};
 
     export const handler = middy(execute)
-    .use(captureLambdaHandler(tracer))
-    .use(policyValidator(readPolicy))
+    //.use(captureLambdaHandler(tracer))
+    //.use(policyValidator(readPolicy))
     .use(schemaValidator(schema))
-    .use(connectionMiddleware);
+    .use(localMongoDBConnectionMiddleware);
     """
 
     return textwrap.dedent(source_code)
@@ -178,10 +178,10 @@ def generate_list_handler(module_name: str, module_attributes:dict[str, Any]):
     }};
 
     export const handler = middy(execute)
-    .use(captureLambdaHandler(tracer))
-    .use(policyValidator(listPolicy))
+    //.use(captureLambdaHandler(tracer))
+    //.use(policyValidator(listPolicy))
     .use(schemaValidator(schema))
-    .use(connectionMiddleware);
+    .use(localMongoDBConnectionMiddleware);
     """
 
     return textwrap.dedent(source_code)
@@ -239,10 +239,10 @@ def generate_update_handler(module_name: str, module_attributes:dict[str, Any]):
     }};
 
     export const handler = middy(execute)
-    .use(captureLambdaHandler(tracer))
-    .use(policyValidator(patchPolicy))
+    //.use(captureLambdaHandler(tracer))
+    //.use(policyValidator(patchPolicy))
     .use(schemaValidator(schema))
-    .use(connectionMiddleware);
+    .use(localMongoDBConnectionMiddleware);
     """
 
     return textwrap.dedent(source_code)
@@ -287,10 +287,10 @@ def generate_delete_handler(module_name: str, module_attributes:dict[str, Any]):
     }};
 
     export const handler = middy(execute)
-    .use(captureLambdaHandler(tracer))
-    .use(policyValidator(deletePolicy))
+    //.use(captureLambdaHandler(tracer))
+    //.use(policyValidator(deletePolicy))
     .use(schemaValidator(schema))
-    .use(connectionMiddleware);
+    .use(localMongoDBConnectionMiddleware);
     """
 
     return textwrap.dedent(source_code)
@@ -353,10 +353,10 @@ def generate_search_handler(module_name: str, module_attributes:dict[str, Any]):
     }};
 
     export const handler = middy(execute)
-    .use(captureLambdaHandler(tracer))
-    .use(policyValidator(listPolicy))
+    //.use(captureLambdaHandler(tracer))
+    //.use(policyValidator(listPolicy))
     .use(schemaValidator(schema))
-    .use(connectionMiddleware);
+    .use(localMongoDBConnectionMiddleware);
     """
 
     return textwrap.dedent(source_code)

@@ -107,12 +107,12 @@ def generate_controller_source_code(module_name:str, module_attributes:dict[str,
                 }},
             }});
 
-            const createAuditLogEvent = new CreateAdminAuditLogEvent();
-            await createAuditLogEvent.process({{
-                ...auditLog,
-                eventData: payload,
-                previousData: {{}},
-            }});
+            //const createAuditLogEvent = new CreateAdminAuditLogEvent();
+            //await createAuditLogEvent.process({{
+            //    ...auditLog,
+            //    eventData: payload,
+            //    previousData,
+            //}});
 
             return updated;
         }}
@@ -179,12 +179,12 @@ def generate_controller_source_code(module_name:str, module_attributes:dict[str,
                 }},
             }});
 
-            const createAuditLogEvent = new CreateAdminAuditLogEvent();
-            await createAuditLogEvent.process({{
-                ...auditLog,
-                eventData: payload,
-                previousData,
-            }});
+            //const createAuditLogEvent = new CreateAdminAuditLogEvent();
+            //await createAuditLogEvent.process({{
+            //    ...auditLog,
+            //    eventData: payload,
+            //    previousData,
+            //}});
 
             return updated;
         }}
@@ -259,8 +259,8 @@ def generate_controller_source_code(module_name:str, module_attributes:dict[str,
 
             await {class_name_lowercase}.delete(id);
 
-            const createAuditLogEvent = new CreateAdminAuditLogEvent();
-            await createAuditLogEvent.process(auditLog);
+            //const createAuditLogEvent = new CreateAdminAuditLogEvent();
+            //await createAuditLogEvent.process(auditLog);
         }}
     """
 
