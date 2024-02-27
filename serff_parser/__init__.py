@@ -161,7 +161,20 @@ class SERFFParser():
             except codecommit.exceptions.RepositoryDoesNotExistException:
                 print(f"Error: Repository '{self.RUNTIME_REPOSITORY_CONFIG[self.runtime]['repository_name']}' does not exist.")
             except Exception as e:
-                print(f"Error: {e}")            
+                print(f"Error: {e}")
+
+    def create_project_config(self, project_config_file_path:str)-> None:
+              
+        with open(project_config_file_path, "r") as iac_file:
+            new_source_code = iac_file.read().replace("[[CODEGEN_PROJECT_NAME]]", self.project_name).replace("[[CODEGEN_SERVICE_NAME]]", self.service_name).replace("[[CODEGEN_RUNTIME]]", self.runtime)
+
+        
+        new_source_code = new_source_code + f"""
+
+  ## [[CODEGEN_STUB_DO_NOT_REMOVE]]:"""
+        
+        with open(project_config_file_path, 'w') as file:
+            file.write(new_source_code)
         
     @staticmethod
     def move_source_files(source_dir:str, destination_dir:str) -> None:

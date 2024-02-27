@@ -8,6 +8,7 @@ def generate(parameters:dict[str, Any])->None:
     project_directory:str     = f"{serff_parser.project_name}-{serff_parser.service_name}"
     source_file_directory:str = SOURCE_FILES_DIR[serff_parser.runtime]
     iac_path:str              = f"{project_directory}/serverless.yml"
+    project_config_path:str   = f"{project_directory}/project.config.yml"
 
     print("Scanning YAML file..")
     serff_parser.parse_yaml_file()
@@ -27,6 +28,7 @@ def generate(parameters:dict[str, Any])->None:
     print("Updating serverless.yml")
     serff_parser.parse_iac_template(iac_path)
     print("Creating config files")
+    serff_parser.create_project_config(project_config_path)
 
     serff_parser.generate_files()
     print(f"{project_directory} successfully created.")
@@ -51,9 +53,9 @@ def add_module(parameters:dict[str, Any])->None:
     # print("Generating test scripts..")
     print("Updating serverless.yml")
     serff_parser.parse_iac_template(iac_path)
-    
+    print("Creating config files")
+
     serff_parser.generate_files()
-    
     print(f"New modules successfully created.")
 
 def generate_global_infra(parameters:dict[str, Any])-> None:
