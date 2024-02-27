@@ -71,12 +71,13 @@ def project_init(parameters:dict[str, Any]) -> None:
     try:
         with open("project.config.yml", "r") as project_config_file:
             project_config = yaml.safe_load(project_config_file.read())
-            print(project_config)
             runtime:str = project_config["RUNTIME"]
 
             if runtime == 'typescript':
-                subprocess.run(["npm", "install"])
-                subprocess.run(["serverless", "plugin", "install", '-n', 'serverless-offline'])
+                print('Installing npm...')
+                subprocess.run('npm install', check=True, cwd=".", shell=True)
+                print('Installing Serverless Offline...')
+                subprocess.run('serverless plugin install -n serverless-offline', check=True, cwd=".", shell=True)
             elif runtime == 'python':
                 print("YAHOOOOOO!")
 
