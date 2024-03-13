@@ -1,0 +1,3 @@
+[console_scripts]
+ecv-codegen = main:run_parser
+

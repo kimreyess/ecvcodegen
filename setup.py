@@ -1,12 +1,13 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.1' 
-DESCRIPTION = 'SERFF generator prototype'
-LONG_DESCRIPTION = 'SERFF generator prototype'
+VERSION = '0.0.2' 
+DESCRIPTION = 'ECV code generator prototype'
+LONG_DESCRIPTION = 'ECV code generator prototype'
+
 
 # Setting up
 setup(
-        name="ecv-serff-gen", 
+        name="ecv-code-gen", 
         version=VERSION,
         author="ECV Peeps",
         author_email="ecv_devph@ecloudvalley.com",
@@ -14,14 +15,10 @@ setup(
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         install_requires=[
-                "pyyaml",
-                "typing_extensions",
-                "boto3",
-                "boto3-stubs",
-                "ecv_python_development"
+                "typing_extensions"
             ], # add any additional packages
         py_modules= ['main'],
-        keywords=[ 'python', 'serff', 'ecv-code-generator'],
+        keywords=[ 'python', 'ecv-codegen', 'ecv-code-generator'],
         classifiers= [
             "Development Status :: Alpha",
             "Intended Audience :: ECV Devs",
@@ -31,7 +28,7 @@ setup(
         ],
         entry_points={
             'console_scripts': [
-                'serff = main:run_parser'
+                'ecv-codegen = main:run_parser'
             ]
         }
 )

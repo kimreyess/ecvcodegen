@@ -9,9 +9,9 @@ import messages as _messages
 import messages.help as _help
 
 CONSTRUCTS:dict[str, Any]= {
+    "init":_construct.init,
     "generate":_construct.generate,
-    "add-module":_construct.add_module,
-    "project_init":_construct.project_init
+    "update":_construct.update
 }
 
 def run_parser() -> None:
@@ -20,30 +20,29 @@ def run_parser() -> None:
         formatter_class=argparse.RawTextHelpFormatter
     )
 
+    parser.add_argument('--init',
+                        required=False,
+                        nargs=0,
+                        dest='construct',
+                        action=_validation.ValidateInitCommand,
+                        help=dedent(_help.HELP_INIT_MSG)
+    )
+
     parser.add_argument('--generate',
                         required=False,
-                        dest='construct',
                         nargs="+",
-                        metavar=("project={Project Name} service={Service Name}", "file, runtime"),
+                        dest='construct',
+                        metavar=("{Boilerplate} path={path} config={config.json}"),
                         action=_validation.ValidateGenerateCommand,
                         help=dedent(_help.HELP_GENERATE_MSG)
     )
 
-    parser.add_argument('--add-module',
-                        required=False,
-                        nargs=1,
-                        dest='construct',
-                        action=_validation.ValidateAddModuleCommand,
-                        metavar=('{YAML File}'),
-                        help=dedent(_help.HELP_ADD_MODULE_MSG)
-    )
-    
-    parser.add_argument('--project-init',
+    parser.add_argument('--update',
                         required=False,
                         nargs=0,
                         dest='construct',
-                        action=_validation.ValidateProjectInitCommand,
-                        help=dedent(_help.HELP_PROJECT_INIT_MSG)
+                        action=_validation.ValidateUpdateCommand,
+                        help=dedent(_help.HELP_UPDATE_MSG)
     )
 
     args = parser.parse_args()

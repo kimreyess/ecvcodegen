@@ -5,40 +5,43 @@ import exceptions as _exceptions
 
 
 # VALIDATION CLASSES
-class ValidateGenerateCommand(argparse.Action):
-    REQUIRED_PARAMETERS:list[str] = ["project", "service"]
-    VALID_RUNTIME:list[str]       = ["python", "typescript"]
-    DEFAULT_RUNTIME: str          = "python"
-    
-    def __call__(self, parser: Any, args: Any, values:Sequence[Any], option_string: Optional[str|None]=None) -> None: # type: ignore
-        parameters = {
-            "project": None,
-            "service": None,
-            "file"   : None,
-            "runtime": ValidateGenerateCommand.DEFAULT_RUNTIME 
-        }
-        get_parameters(values, parameters)
-        check_required_parameters(parameters, ValidateGenerateCommand.REQUIRED_PARAMETERS)
-        check_file_param(parameters["file"])
 
+class ValidateGenerateCommand(argparse.Action):
+    def __call__(self, parser: Any, args: Any, values: str | Sequence[Any], option_string: Optional[str|None]=None) -> None: # type: ignore
+        parameters: dict[str, str | None] = {
+            "path": None,
+            "config": None
+        }
+        
+        new_param: list[str] = []
+        for value in values:
+            if "=" in value:
+                new_param.append(value) 
+
+        get_parameters(new_param, parameters) 
+        parameters['template'] = values[0]
+        
         setattr(args, self.dest, ("generate", parameters))
 
-class ValidateAddModuleCommand(argparse.Action):
-    def __call__(self, parser: Any, args: Any, values: str | Sequence[Any], option_string: Optional[str|None]=None) -> None: # type: ignore
-        filename:str = values # type: ignore
-        check_file_param(filename)  
-        setattr(args, self.dest, ("add_module", values))
 
-
-class ValidateProjectInitCommand(argparse.Action):
+class ValidateInitCommand(argparse.Action):
     def __call__(self, parser: Any, args: Any, values: str | Sequence[Any], option_string: Optional[str|None]=None) -> None: # type: ignore
-        setattr(args, self.dest, ("project_init", values))
+        setattr(args, self.dest, ("init", values))
+
+class ValidateUpdateCommand(argparse.Action):
+    def __call__(self, parser: Any, args: Any, values: str | Sequence[Any], option_string: Optional[str|None]=None) -> None: # type: ignore
+        setattr(args, self.dest, ("update", values))
+
+class ValidateClearCacheCommand(argparse.Action):
+    def __call__(self, parser: Any, args: Any, values: str | Sequence[Any], option_string: Optional[str|None]=None) -> None: # type: ignore
+        setattr(args, self.dest, ("clear_cache", values))
 
 #VALIDATION METHODS
 def get_parameters(arg_values:Sequence[Any], parameters:dict[str, str | None]) -> None:
     
     valid_parameter_list = list(parameters.keys())
     for param in arg_values:
+        # print(arg_values)
         parameter:str = ""
         value:str = ""
 
@@ -50,6 +53,7 @@ def get_parameters(arg_values:Sequence[Any], parameters:dict[str, str | None]) -
         if parameter not in valid_parameter_list:
             _exceptions.GenericException(f'Invalid parameter given "{parameter}". Must be one of: {valid_parameter_list}')
         parameters[parameter] = value
+        # print(parameters)
 
 def check_required_parameters(param:dict[str, str | None], required_parameters:list[str]) -> None:
     error_message = "Specify required parameters: "
