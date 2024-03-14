@@ -10,7 +10,8 @@ setup(
         name="ecv-code-gen", 
         version=VERSION,
         author="ECV Peeps",
-        author_email="ecv_devph@ecloudvalley.com",
+        author_email="reyeskimberly018@gmail.com",
+        # author_email="ecv_devph@ecloudvalley.com",
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
@@ -30,5 +31,6 @@ setup(
             'console_scripts': [
                 'ecv-codegen = main:run_parser'
             ]
-        }
+        },
+        url="https://github.com/kimreyess/ecvcodegen",
 )

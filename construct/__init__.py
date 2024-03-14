@@ -79,6 +79,9 @@ def init(parameters: dict[str, Any]) -> None:
             subprocess.run(['mason', 'init'], check=True)
             subprocess.run(['mason', 'add', '-g', 'flutter_model', '--git-url', 'https://Arlovzki@bitbucket.org/arlovzki/ecv_flutter_mason_bricks.git', '--git-path', 'flutter_model'], check=True)
             subprocess.run(['mason', 'add', '-g', 'flutter_boilerplate', '--git-url', 'https://Arlovzki@bitbucket.org/arlovzki/ecv_flutter_mason_bricks.git', '--git-path', 'flutter_boilerplate'], check=True)  
+            subprocess.run(['mason', 'add', '-g', 'web_page', '--git-url', 'https://github.com/dominicrafer/web_boilerplate_bricks.git', '--git-path', 'web-boilerplate-bricks/web_page'], check=True)  
+            subprocess.run(['mason', 'add', '-g', 'web_amplify', '--git-url', 'https://github.com/dominicrafer/web_boilerplate_bricks.git', '--git-path', 'web-boilerplate-bricks/web_amplify'], check=True)  
+            subprocess.run(['mason', 'add', '-g', 'web_module', '--git-url', 'https://github.com/dominicrafer/web_boilerplate_bricks.git', '--git-path', 'web-boilerplate-bricks/web_module'], check=True)  
         else:
             print("Failed to download mason-cli.")
 

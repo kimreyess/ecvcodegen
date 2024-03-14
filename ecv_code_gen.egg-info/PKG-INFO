@@ -2,9 +2,9 @@ Metadata-Version: 2.1
 Name: ecv-code-gen
 Version: 0.0.2
 Summary: ECV code generator prototype
-Home-page: UNKNOWN
+Home-page: https://github.com/kimreyess/ecvcodegen
 Author: ECV Peeps
-Author-email: ecv_devph@ecloudvalley.com
+Author-email: reyeskimberly018@gmail.com
 License: UNKNOWN
 Keywords: python,ecv-codegen,ecv-code-generator
 Platform: UNKNOWN
