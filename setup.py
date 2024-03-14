@@ -7,7 +7,7 @@ LONG_DESCRIPTION = 'ECV code generator prototype'
 
 # Setting up
 setup(
-        name="ecv-code-gen", 
+        name="ecv-codegen", 
         version=VERSION,
         author="ECV Peeps",
         author_email="reyeskimberly018@gmail.com",
@@ -21,8 +21,8 @@ setup(
         py_modules= ['main'],
         keywords=[ 'python', 'ecv-codegen', 'ecv-code-generator'],
         classifiers= [
-            "Development Status :: Alpha",
-            "Intended Audience :: ECV Devs",
+            'Development Status :: 3 - Alpha',
+            'Intended Audience :: Developers', 
             "Programming Language :: Python :: 3",
             "Operating System :: MacOS :: MacOS X",
             "Operating System :: Microsoft :: Windows",
